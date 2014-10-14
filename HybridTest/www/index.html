@@ -28,8 +28,18 @@
         <title>Hello World</title>
     </head>
     <body>
-         <iframe src="https://studip.serv.uni-osnabrueck.de/plugins.php/studipmobile/session/new"
-            style="width: 100%; min-height: 100%;" frameBorder="0">
-    </iframe>
+         <p id="result">test</p>
+
+        <script src="phonegap.js"></script>
+        <script src="jquery-1.8.2.min.js"></script>
+
+        <script type="text/javascript">
+                var geolocationSuccess = function(position) {
+                    $('#result').html("Latitude:" + position.coords.latitude);
+                };
+                $(document).ready(function() {
+                        navigator.geolocation.getCurrentPosition(geolocationSuccess);
+                });
+        </script>
     </body>
 </html>
