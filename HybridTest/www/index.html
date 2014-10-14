@@ -28,18 +28,50 @@
         <title>Hello World</title>
     </head>
     <body>
-         <p id="result">test</p>
+         <div id="camera">
+            <button class="camera-control" onclick="capturePhoto();">Capture Photo</button>
 
-        <script src="phonegap.js"></script>
-        <script src="jquery-1.8.2.min.js"></script>
+            <div style="text-align:center;margin:20px;">
+                <img id="cameraPic" src="" style="width:auto;height:120px;"></img>
+            </div>
+         </div>
+        
+        <script>
+            function capturePhoto(){
+            navigator.camera.getPicture(uploadPhoto,null,{sourceType:1,quality:60});
+            }
+            
+            function uploadPhoto(data){
+            // this is where you would send the image file to server
 
-        <script type="text/javascript">
-                var geolocationSuccess = function(position) {
-                    $('#result').html("Latitude:" + position.coords.latitude);
-                };
-                $(document).ready(function() {
-                        navigator.geolocation.getCurrentPosition(geolocationSuccess);
-                });
+            cameraPic.src = "data:image/jpeg;base64," + data;
+            // Successful upload to the server
+            navigator.notification.alert(
+                    'Your Photo has been uploaded',  // message
+                    okay,                           // callback
+                'Photo Uploaded',              // title
+                'OK'                          // buttonName
+            );
+
+            // upload has failed Fail
+
+            /* 
+
+            if (failedToUpload){
+
+            navigator.notification.alert(
+                    'Your Photo has failed to upload',
+                    failedDismissed,
+                'Photo Not Uploaded',
+                'OK'
+                    );
+
+            } 
+            */
+            }
+            function okay(){
+                // Do something
+            }
         </script>
     </body>
 </html>
